@@ -1,7 +1,7 @@
 from graphics import Point, Line
 
 class Cell(object):
-    def __init__(self, x1, y1, x2, y2, window):
+    def __init__(self, x1, y1, x2, y2, window=None):
         """
         x1, y1 - cords of top-left corner
         x2, y2 - cords of bottom-right corner
@@ -23,18 +23,19 @@ class Cell(object):
         top_right = Point(self._x2, self._y1)
         bottom_left = Point(self._x1, self._y2)
 
-        if self.has_left_wall:
-            left_wall_line = Line(top_left, bottom_left)
-            self._win.draw_line(left_wall_line)
-        if self.has_right_wall:
-            right_wall_line = Line(top_right, bottom_right)
-            self._win.draw_line(right_wall_line)
-        if self.has_top_wall:
-            top_wall_line = Line(top_left, top_right)
-            self._win.draw_line(top_wall_line)
-        if self.has_bottom_wall:
-            bottom_wall_line = Line(bottom_left, bottom_right)
-            self._win.draw_line(bottom_wall_line)
+        colours = ["white", "black"]
+        
+        left_wall_line = Line(top_left, bottom_left)
+        self._win.draw_line(left_wall_line, colours[self.has_left_wall])
+
+        right_wall_line = Line(top_right, bottom_right)
+        self._win.draw_line(right_wall_line, colours[self.has_right_wall])
+
+        top_wall_line = Line(top_left, top_right)
+        self._win.draw_line(top_wall_line, colours[self.has_top_wall])
+
+        bottom_wall_line = Line(bottom_left, bottom_right)
+        self._win.draw_line(bottom_wall_line, colours[self.has_bottom_wall])
 
     def draw_move(self, to_cell, undo=False):
         if undo:
