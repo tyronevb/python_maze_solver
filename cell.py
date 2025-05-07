@@ -15,6 +15,7 @@ class Cell(object):
         self._y1 = y1
         self._y2 = y2
         self._win = window
+        self._centre = Point((self._x1 + self._x2)/2, (self._y1 + self._y2)/2)
     
     def draw(self):
         top_left = Point(self._x1, self._y1)
@@ -34,3 +35,12 @@ class Cell(object):
         if self.has_bottom_wall:
             bottom_wall_line = Line(bottom_left, bottom_right)
             self._win.draw_line(bottom_wall_line)
+
+    def draw_move(self, to_cell, undo=False):
+        if undo:
+            fill_colour = "red"
+        else:
+            fill_colour = "gray"
+        
+        line_between_cells = Line(self._centre, to_cell._centre)
+        self._win.draw_line(line_between_cells, fill_colour)
