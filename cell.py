@@ -16,6 +16,7 @@ class Cell(object):
         self._y2 = y2
         self._win = window
         self._centre = Point((self._x1 + self._x2)/2, (self._y1 + self._y2)/2)
+        self.visited = False
     
     def draw(self):
         top_left = Point(self._x1, self._y1)
@@ -24,7 +25,7 @@ class Cell(object):
         bottom_left = Point(self._x1, self._y2)
 
         colours = ["white", "black"]
-        
+
         left_wall_line = Line(top_left, bottom_left)
         self._win.draw_line(left_wall_line, colours[self.has_left_wall])
 
